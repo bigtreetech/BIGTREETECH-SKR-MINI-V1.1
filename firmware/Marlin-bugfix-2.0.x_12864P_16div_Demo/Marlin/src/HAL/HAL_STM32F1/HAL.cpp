@@ -27,8 +27,8 @@
 
 #ifdef __STM32F1__
 
-#include "HAL.h"
 #include "../../inc/MarlinConfig.h"
+#include "HAL.h"
 
 #include <STM32ADC.h>
 
@@ -121,6 +121,9 @@ const uint8_t adc_pins[] = {
   #if ENABLED(FILAMENT_WIDTH_SENSOR)
     FILWIDTH_PIN,
   #endif
+  #if ENABLED(ADC_KEYPAD)
+    ADC_KEYPAD_PIN,
+  #endif
   #if HAS_JOY_ADC_X
     JOY_X_PIN,
   #endif
@@ -159,6 +162,9 @@ enum TEMP_PINS : char {
   #endif
   #if ENABLED(FILAMENT_WIDTH_SENSOR)
     FILWIDTH,
+  #endif
+  #if ENABLED(ADC_KEYPAD)
+    ADC_KEY,
   #endif
   #if HAS_JOY_ADC_X
     JOY_X,
@@ -233,7 +239,7 @@ void HAL_idletask() {
       // a PC via USB.
       // Other HALs use IS_SD_PRINTING() and IS_SD_FILE_OPEN() to check for access but
       // this will not reliably detect delete operations. To be safe we will lock
-      // the disk if Marlin has it mounted. Unfortuately there is currently no way
+      // the disk if Marlin has it mounted. Unfortunately there is currently no way
       // to unmount the disk from the LCD menu.
       // if (IS_SD_PRINTING() || IS_SD_FILE_OPEN())
       /* copy from lpc1768 framework, should be fixed later for process SHARED_SD_CARD*/
@@ -272,7 +278,7 @@ extern "C" {
 // return free memory between end of heap (or end bss) and whatever is current
 
 /*
-#include "wirish/syscalls.c"
+#include <wirish/syscalls.c>
 //extern caddr_t _sbrk(int incr);
 #ifndef CONFIG_HEAP_END
 extern char _lm_heap_end;
@@ -351,6 +357,9 @@ void HAL_adc_start_conversion(const uint8_t adc_pin) {
     #endif
     #if ENABLED(FILAMENT_WIDTH_SENSOR)
       case FILWIDTH_PIN: pin_index = FILWIDTH; break;
+    #endif
+    #if ENABLED(ADC_KEYPAD)
+      case ADC_KEYPAD_PIN: pin_index = ADC_KEY; break;
     #endif
   }
   HAL_adc_result = (HAL_adc_results[(int)pin_index] >> 2) & 0x3FF; // shift to get 10 bits only.
