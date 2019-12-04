@@ -188,6 +188,7 @@ void eeprom_update_block(const void *__src, void *__dst, size_t __n);
 inline void HAL_adc_init() {}
 
 #define HAL_START_ADC(pin)  HAL_adc_start_conversion(pin)
+#define HAL_ADC_RESOLUTION  10
 #define HAL_READ_ADC()      HAL_adc_result
 #define HAL_ADC_READY()     true
 
@@ -198,3 +199,6 @@ uint16_t HAL_adc_get_result();
 #define GET_PIN_MAP_PIN(index) index
 #define GET_PIN_MAP_INDEX(pin) pin
 #define PARSED_PIN_INDEX(code, dval) parser.intval(code, dval)
+
+#define PLATFORM_M997_SUPPORT
+void flashFirmware(int16_t value);
