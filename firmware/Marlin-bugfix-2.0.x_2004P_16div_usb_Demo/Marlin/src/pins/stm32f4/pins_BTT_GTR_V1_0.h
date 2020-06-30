@@ -31,8 +31,10 @@
 
 #define BOARD_INFO_NAME "BIGTREE GTR 1.0"
 
+#undef E2END
+#define E2END 0x1FFF                               // 8KB
 // Use one of these or SDCard-based Emulation will be used
-//#define I2C_EEPROM
+#define I2C_EEPROM
 //#define SRAM_EEPROM_EMULATION                   // Use BackSRAM-based EEPROM emulation
 //#define FLASH_EEPROM_EMULATION                  // Use Flash-based EEPROM emulation
 
@@ -278,8 +280,8 @@
 #define FAN3_PIN                            PI5   // Fan3
 #define FAN4_PIN                            PE9   // Fan4
 #define FAN5_PIN                            PE11  // Fan5
-//#define FAN6_PIN                          PC9   // Fan6
-//#define FAN7_PIN                          PE14  // Fan7
+#define FAN6_PIN                            PC9   // Fan6
+#define FAN7_PIN                            PE14  // Fan7
 
 //
 // By default the onboard SD (SPI1) is enabled
@@ -321,13 +323,13 @@
 
   #if ENABLED(CR10_STOCKDISPLAY)
 
-    #define LCD_PINS_RS                     PA8
+    #define LCD_PINS_RS                     PG6
 
-    #define BTN_EN1                         PD10
-    #define BTN_EN2                         PH10
+    #define BTN_EN1                         PC10
+    #define BTN_EN2                         PG8
 
-    #define LCD_PINS_ENABLE                 PG7
-    #define LCD_PINS_D4                     PG8
+    #define LCD_PINS_ENABLE                 PG5
+    #define LCD_PINS_D4                     PG7
 
     //#undef ST7920_DELAY_1
     //#undef ST7920_DELAY_2

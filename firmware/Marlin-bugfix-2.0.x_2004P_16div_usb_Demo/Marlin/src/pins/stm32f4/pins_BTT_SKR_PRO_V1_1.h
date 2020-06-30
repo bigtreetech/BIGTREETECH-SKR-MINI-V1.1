@@ -179,25 +179,27 @@
 #define FAN2_PIN                            PE6   // Fan2
 
 //
-// Misc. Functions
+// Misc. Functions ONBOARD or LCD 
 //
 
 #ifndef SDCARD_CONNECTION
-  #define SDCARD_CONNECTION                  LCD
+  #define SDCARD_CONNECTION                  ONBOARD
 #endif
 
 //
 // Onboard SD card
 //   NOT compatible with LCD
 //
-#if SDCARD_CONNECTION == ONBOARD && !HAS_SPI_LCD
+#if SDCARD_CONNECTION == ONBOARD //&& !HAS_SPI_LCD
   #define SOFTWARE_SPI                            // Use soft SPI for onboard SD
   #define SDSS                              PA4
   #define SCK_PIN                           PA5
   #define MISO_PIN                          PA6
   #define MOSI_PIN                          PB5
+  #define SD_DETECT_PIN                     PB11
 #else
   #define SDSS                              PB12
+  #define SD_DETECT_PIN                     PF12
 #endif
 
 /**
@@ -239,8 +241,7 @@
 
     #define BTN_EN1                         PG10
     #define BTN_EN2                         PF11
-    #define SD_DETECT_PIN                   PF12
-
+    
     #define LCD_SDSS                        PB12
 
     #define LCD_PINS_ENABLE                 PD11
